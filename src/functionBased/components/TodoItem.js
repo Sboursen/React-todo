@@ -1,78 +1,38 @@
-import React from 'react';
-import styles from './TodoItem.module.css';
-class TodoItem extends React.Component {
-  state = {
-    editing: false,
+import React, { useState } from 'react';
+
+const InputTodo = (props) => {
+  const [title, setTitle] = useState('');
+
+  const onChange = (e) => {
+    setTitle(e.target.value);
   };
 
-  componentWillUnmount() {
-    console.log('Cleaning up...');
-  }
-
-  handleEditing = () => {
-    this.setState({
-      editing: true,
-    });
-  };
-
-  handleUpdatedDone = (event) => {
-    if (event.key === 'Enter') {
-      this.setState({ editing: false });
-    }
-  };
-
-  render() {
-    let viewMode = {};
-    let editMode = {};
-
-    if (this.state.editing) {
-      viewMode.display = 'none';
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (title.trim()) {
+      props.addTodoProps(title);
+      setTitle('');
     } else {
-      editMode.display = 'none';
+      alert('Please write item');
     }
-    const completedStyle = {
-      fontStyle: 'italic',
-      color: '#595959',
-      opacity: 0.4,
-      textDecoration: 'line-through',
-    };
-    const { completed, id, title } = this.props.todo;
-    return (
-      <li className={styles.item}>
-        <div
-          onDoubleClick={this.handleEditing}
-          style={viewMode}
-        >
-          <input
-            type="checkbox"
-            className={styles.checkbox}
-            checked={completed}
-            onChange={() =>
-              this.props.handleChangeProps(id)
-            }
-          />
-          <button
-            onClick={() => this.props.deleteTodoProps(id)}
-          >
-            Delete
-          </button>
-          <span style={completed ? completedStyle : null}>
-            {title}
-          </span>
-        </div>
-        <input
-          type="text"
-          style={editMode}
-          className={styles.textInput}
-          value={title}
-          onChange={(e) => {
-            this.props.setUpdate(e.target.value, id);
-          }}
-          onKeyDown={this.handleUpdatedDone}
-        />
-      </li>
-    );
-  }
-}
+  };
 
-export default TodoItem;
+  return (
+    <form
+      onSubmit={handleSubmit}
+      className="form-container"
+    >
+      <input
+        type="text"
+        className="input-text"
+        placeholder="Add todo..."
+        value={title}
+        name="title"
+        onChange={onChange}
+      />
+      <button className="input-submit">Submit</button>
+    </form>
+  );
+};
+
+export default InputTodo;
