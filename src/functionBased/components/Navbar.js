@@ -20,6 +20,10 @@ const Navbar = () => {
     setNavbarOpen((prev) => !prev);
   };
 
+  const closeMenu = () => {
+    setNavbarOpen(false);
+  };
+
   return (
     <nav className="navBar">
       <button onClick={handleToggle}>
@@ -36,6 +40,7 @@ const Navbar = () => {
               <NavLink
                 to={link.path}
                 activeClassName="active-link"
+                onClick={() => closeMenu()}
                 exact
               >
                 {link.text}
