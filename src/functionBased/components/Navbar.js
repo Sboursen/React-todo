@@ -52,20 +52,18 @@ const Navbar = () => {
           navbarOpen ? ' showMenu' : ''
         }`}
       >
-        {links.map((link) => {
-          return (
-            <li key={link.id}>
-              <NavLink
-                to={link.path}
-                activeClassName="active-link"
-                onClick={() => closeMenu()}
-                exact
-              >
-                {link.text}
-              </NavLink>
-            </li>
-          );
-        })}
+        {links.map((link) => (
+          <li key={link.id}>
+            <NavLink
+              to={link.path}
+              activeClassName="active-link"
+              onClick={() => closeMenu()}
+              exact
+            >
+              {link.text}
+            </NavLink>
+          </li>
+        ))}
       </ul>
     </nav>
   );
