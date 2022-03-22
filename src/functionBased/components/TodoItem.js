@@ -75,6 +75,7 @@ TodoItem.propTypes = {
   deleteTodoProps: PropTypes.func.isRequired,
   handleChangeProps: PropTypes.func.isRequired,
   setUpdate: PropTypes.func.isRequired,
+
   // eslint-disable-next-line react/forbid-prop-types
   todo: PropTypes.object.isRequired,
 };
