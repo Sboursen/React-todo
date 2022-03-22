@@ -28,7 +28,7 @@
     "lint:js": "eslint ./src/**/*.js",
     "lint:scss": "stylelint ./src/**/*.css",
     "lintFix:js": "eslint ./src/**/*.js --fix",
-    "lintFix:scss": "stylelint ./src/**/*.css --fix"
+    "lintFix:css": "stylelint ./src/**/*.css --fix"
   },
   "eslintConfig": {
     "extends": [

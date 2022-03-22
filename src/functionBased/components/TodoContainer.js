@@ -9,20 +9,18 @@ import NotMatch from '../pages/NotMatch';
 import Navbar from './Navbar';
 
 const TodoContainer = () => {
-  const [todos, setTodos] = useState(getInitialTodos());
-
-  useEffect(() => {
-    // storing todos items
-    const temp = JSON.stringify(todos);
-    localStorage.setItem('todos', temp);
-  }, [todos]);
-
   function getInitialTodos() {
-    // getting stored items
     const temp = localStorage.getItem('todos');
     const savedTodos = JSON.parse(temp);
     return savedTodos || [];
   }
+
+  const [todos, setTodos] = useState(getInitialTodos());
+
+  useEffect(() => {
+    const temp = JSON.stringify(todos);
+    localStorage.setItem('todos', temp);
+  }, [todos]);
 
   const handleChange = (id) => {
     setTodos((prevState) => prevState.map((todo) => {
@@ -37,9 +35,7 @@ const TodoContainer = () => {
   };
 
   const delTodo = (id) => {
-    setTodos([
-      ...todos.filter((todo) => todo.id !== id),
-    ]);
+    setTodos([...todos.filter((todo) => todo.id !== id)]);
   };
 
   const addTodoItem = (title) => {
@@ -55,7 +51,9 @@ const TodoContainer = () => {
     setTodos(
       todos.map((todo) => {
         if (todo.id === id) {
-          todo.title = updatedTitle;
+          const newTodo = { ...todo };
+          newTodo.title = updatedTitle;
+          return newTodo;
         }
         return todo;
       }),

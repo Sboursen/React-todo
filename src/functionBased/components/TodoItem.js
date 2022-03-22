@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { FaTrash } from 'react-icons/fa';
 import styles from './TodoItem.module.css';
 
-const TodoItem = (props) => {
+const TodoItem = ({ ...props }) => {
   const [editing, setEditing] = useState(false);
-
-  useEffect(() => () => {
-    console.log('Cleaning up...');
-  }, []);
 
   const handleEditing = () => {
     setEditing(true);
@@ -46,7 +43,10 @@ const TodoItem = (props) => {
           checked={completed}
           onChange={() => props.handleChangeProps(id)}
         />
-        <button onClick={() => props.deleteTodoProps(id)}>
+        <button
+          type="button"
+          onClick={() => props.deleteTodoProps(id)}
+        >
           <FaTrash
             style={{ color: 'orangered', fontSize: '16px' }}
           />
@@ -70,3 +70,11 @@ const TodoItem = (props) => {
 };
 
 export default TodoItem;
+
+TodoItem.propTypes = {
+  deleteTodoProps: PropTypes.func.isRequired,
+  handleChangeProps: PropTypes.func.isRequired,
+  setUpdate: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  todo: PropTypes.object.isRequired,
+};
